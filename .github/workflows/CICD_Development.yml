@@ -2,33 +2,26 @@ name: AVEST CICD DEV
 
 on:
   push:
-    branches: [development]
+    branches:
+      - development
   pull_request:
     types:
+      - opened
+      - synchronize
       - labeled
+      - unlabeled
+      - reopened
+      - edited
     branches: "development"
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-
+    runs-on: self-hosted
+    if: |
+      (github.event_name == 'push' && github.ref == 'refs/heads/development') || 
+      (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'deploy'))
     steps:
-      - name: Echo label
-        run: |
-          for label in ${{ github.event.pull_request.labels.*.name }}; do
-            echo "Label: $label"
-          done
-      - name: Exit if "help wanted" label is not present
-        if: |
-          !contains(github.event.pull_request.labels.*.name, 'help wanted')
-        run: |
-          exit 0 # Exit with a successful status code
       - name: Extract branch name
         shell: bash
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
         id: extract_branch
-      - name: GIT PULL
-        env:
-        run: |
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          echo "target branch: ${{ steps.extract_branch.outputs.branch }}"
