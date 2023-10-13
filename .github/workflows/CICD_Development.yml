@@ -19,7 +19,7 @@ env:
 
 jobs:
   print-labels:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Print Labels
         run: |
