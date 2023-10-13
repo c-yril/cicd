@@ -17,7 +17,7 @@ jobs:
   build:
     runs-on: self-hosted
     if: |
-      (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'deploy_dev')) ||
+      (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'deploy to dev')) ||
       (github.event_name == 'push' && github.ref == 'refs/heads/development')
 
     steps:
