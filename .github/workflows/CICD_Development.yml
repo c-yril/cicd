@@ -1,5 +1,7 @@
 name: AVEST CICD DEV
 
+runs-on: self-hosted
+
 on:
   push:
     branches: [development]
