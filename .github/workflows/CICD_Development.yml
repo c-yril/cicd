@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Echo label
+      - name: Echo label PR
         run: |
           for label in ${{ github.event.pull_request.labels.*.name }}; do
             echo "Label: $label"
