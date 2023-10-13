@@ -18,26 +18,10 @@ env:
   TARGET_PR_LABEL: "deploy_dev"
 
 jobs:
-  print-labels:
-    runs-on: self-hosted
-    steps:
-      - name: Print Labels
-        run: |
-          echo ${{ github.event_name }}
-          for label in "${{ github.event.pull_request.labels.*.name }}"; do
-            echo "Label: $label"
-          done
-          labels="${{ toJson(github.event.pull_request.labels.*.name) }}"
-          for label in "$labels"; do
-            echo "Label: $label"
-          done
-          for label in $(echo $labels | jq -r '.[]'); do
-            echo "Label: $label"
-          done
   build:
     runs-on: self-hosted
     if: |
-      (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, '${TARGET_PR_LABEL}')) ||
+      (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'deploy_dev')) ||
       (github.event_name == 'push' && github.ref == 'refs/heads/development')
 
     steps:
