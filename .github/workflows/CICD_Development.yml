@@ -14,7 +14,7 @@ on:
     branches: "development"
 
 env:
-  TARGET_PR_LABEL: "deploy to dev"
+  TARGET_PR_LABEL: "dev deploy"
 
 jobs:
   # print-labels:
