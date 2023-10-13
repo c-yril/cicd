@@ -22,10 +22,11 @@ jobs:
     steps:
       - name: Print Labels
         run: |
-          echo "${{ github.event.pull_request.labels.*.name }}"
-          for label in "${{ github.event.pull_request.labels.*.name }}"; do
-            echo "Label: $label"
-          done
+          if [[ "${{ github.event.pull_request.labels.*.name }}" == *"${TARGET_PR_LABEL}"* ]]; then
+             echo "The '${TARGET_PR_LABEL}' label is applied to this pull request."
+           else
+             echo "The '${TARGET_PR_LABEL}' label is not applied to this pull request."
+           fi
   build:
     runs-on: self-hosted
     if: |
