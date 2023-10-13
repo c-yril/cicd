@@ -25,7 +25,6 @@ jobs:
         run: |
           echo ${{ github.event_name }}
           labels="${{ toJson(github.event.pull_request.labels.*.name) }}"
-          echo "Labels: $labels"
           for label in "$labels"; do
             echo "Label: $label"
           done
