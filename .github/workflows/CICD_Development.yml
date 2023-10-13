@@ -14,9 +14,6 @@ on:
       - unlabeled
     branches: "development"
 
-env:
-  TARGET_PR_LABEL: "deploy_dev"
-
 jobs:
   build:
     runs-on: self-hosted
