@@ -23,6 +23,7 @@ jobs:
       - name: Print Labels
         run: |
           labels="${{ toJson(github.event.pull_request.labels.*.name) }}"
+          echo "Labels: $labels"
           for label in $(echo $labels | jq -r '.[]'); do
             echo "Label: $label"
           done
