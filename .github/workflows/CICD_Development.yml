@@ -19,7 +19,7 @@ jobs:
     runs-on: self-hosted
     if: |
       (github.event_name == 'push' && github.ref == 'refs/heads/development') || 
-      (github.event_name == 'pull_request' && !contains(github.event.pull_request.labels.*.name, 'deploy'))
+      (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'deploy'))
     steps:
       - name: Extract branch name
         shell: bash
