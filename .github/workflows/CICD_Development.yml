@@ -15,14 +15,14 @@ on:
     branches: "development"
 
 env:
-  TARGET_PR_LABEL: "deploy-to-dev"
+  TARGET_PR_LABEL: "deploy to dev"
 
 jobs:
   build:
     runs-on: self-hosted
     if: |
       (github.event_name == 'push' && github.ref == 'refs/heads/development') || 
-      (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, "${TARGET_PR_LABEL}"))
+      (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, '${TARGET_PR_LABEL}'))
 
     steps:
       - name: Extract branch name
