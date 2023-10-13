@@ -8,14 +8,13 @@ on:
     types:
       - opened
       - synchronize
-      - labeled
-      - unlabeled
       - reopened
       - edited
+      - labeled
     branches: "development"
 
 env:
-  TARGET_PR_LABEL: "deploy_to_dev"
+  TARGET_PR_LABEL: "deploy to dev"
 
 jobs:
   build:
