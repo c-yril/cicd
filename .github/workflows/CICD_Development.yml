@@ -23,6 +23,7 @@ jobs:
     steps:
       - name: Print Labels
         run: |
+        echo "github.event_name =$(github.event_name)"
           labels="${{ toJson(github.event.pull_request.labels.*.name) }}"
           echo "Labels: $labels"
           for label in "$labels"; do
@@ -31,16 +32,11 @@ jobs:
           for label in $(echo $labels | jq -r '.[]'); do
             echo "Label: $label"
           done
-          if [[ contains(github.event.pull_request.labels.*.name, '${TARGET_PR_LABEL}') ]]; then
-            echo "The '${TARGET_PR_LABEL}' label is applied to this pull request."
-          else
-            echo "The '${TARGET_PR_LABEL}' label is not applied to this pull request."
-          fi
   build:
     runs-on: self-hosted
     if: |
-      (github.event_name == 'push' && github.ref == 'refs/heads/development') || 
-      (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, '${TARGET_PR_LABEL}'))
+      (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, '${TARGET_PR_LABEL}')) ||
+      (github.event_name == 'push' && github.ref == 'refs/heads/development')
 
     steps:
       - name: Extract branch name
