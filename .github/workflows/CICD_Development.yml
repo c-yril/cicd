@@ -22,10 +22,9 @@ jobs:
     steps:
       - name: Print Labels
         run: |
-          for label in "${{ github.event.pull_request.labels.*.name }}"; do
-            for l in "$label"; do
-              echo "Label: $l"
-            done
+          labels="${{ toJson(github.event.pull_request.labels.*.name) }}"
+          for label in $(echo $labels | jq -r '.[]'); do
+            echo "Label: $label"
           done
           if [[ "${{ github.event.pull_request.labels.*.name }}" == *"${TARGET_PR_LABEL}"* ]]; then
             echo "The '${TARGET_PR_LABEL}' label is applied to this pull request."
