@@ -23,7 +23,7 @@ jobs:
     steps:
       - name: Print Labels
         run: |
-        echo "github.event_name =$(github.event_name)"
+          echo ${{ github.event_name }}
           labels="${{ toJson(github.event.pull_request.labels.*.name) }}"
           echo "Labels: $labels"
           for label in "$labels"; do
