@@ -1,7 +1,5 @@
 name: AVEST CICD DEV
 
-runs-on: self-hosted
-
 on:
   push:
     branches: [development]
@@ -12,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Echo label PR
