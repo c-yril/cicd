@@ -14,12 +14,16 @@ on:
       - edited
     branches: "development"
 
+env:
+  TARGET_PR_LABEL: deploy
+
 jobs:
   build:
     runs-on: self-hosted
     if: |
       (github.event_name == 'push' && github.ref == 'refs/heads/development') || 
-      (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'deploy'))
+      (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, '${TARGET_PR_LABEL}'))
+
     steps:
       - name: Extract branch name
         shell: bash
